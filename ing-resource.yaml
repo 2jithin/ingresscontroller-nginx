@@ -1,0 +1,33 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: test-ingress
+  namespace: ingress-nginx
+  annotations:
+    ingressclass.kubernetes.io/is-default-class: "false"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    # kubernetes.io/ingress.class: azure/application-gateway
+    # appgw.ingress.kubernetes.io/backend-path-prefix: /
+spec:
+  ingressClassName: "host-based-routing" # name can be specify as per the needed in single with spaces or without
+  rules:
+    - host: dev.app1.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: nginx-service
+                port:
+                  number: 80
+          - path: /aspnetapp
+            pathType: Exact
+            backend:
+              service:
+                name: aspnetapp
+                port:
+                  number: 80
+
+              

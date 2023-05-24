@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-ingress-controller
+  namespace: ingress-nginx
+  labels:
+    name: nginx
+    tier: backend
+spec:
+  # replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-ingress
+  template:
+    metadata:
+      labels:
+        app: nginx-ingress
+    spec:
+      containers:
+        - name: nginx-ingress-controller
+          image: nginx/nginx-ingress:latest
+          ports:
+            - name: http
+              containerPort: 80
+            - name: https
+              containerPort: 443
+          args:
+            - /nginx-ingress-controller
+            - --publish-service=ingress-nginx-controller
+          resources:
+            limits:
+              memory: 248Mi
+              cpu: "2"
+            requests:
+              memory: 128Mi
+              cpu: "0.2" 
+      # initContainers:
+      # - name: web-content
+      #   image: busybox
+      #   volumeMounts:
+      #   - name: webdata
+      #     mountPath: "/webdata"
+      #   command: ["/bin/sh", "-c", 'echo "$(curl -k ifconfig.io)<h1>simple test <font color=green>APP1</font></h1>" > /webdata/index.html']

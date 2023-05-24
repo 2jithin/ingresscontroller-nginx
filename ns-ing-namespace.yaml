@@ -1,0 +1,6 @@
+# myNamespace="new-namespace"
+# kubectl get namespace | grep -q "^$myNamespace " || kubectl create namespace $myNamespace
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ingress-nginx
