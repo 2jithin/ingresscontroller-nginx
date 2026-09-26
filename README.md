@@ -12,6 +12,16 @@ A hands-on Kubernetes implementation demonstrating how the NGINX Ingress Control
 - External-to-internal application traffic flow
 - Kubernetes networking concepts
 
+## Key Concepts
+
+- Ingress vs Service
+- Layer 7 HTTP routing
+- Host-based routing
+- Path-based routing
+- TLS termination
+- Kubernetes service discovery
+- Controller-based reconciliation
+
 ## Traffic Flow
 
 Client
